@@ -1,3 +1,5 @@
+using apibronco.bronco.com.br.DTOs;
+using apibronco.bronco.com.br.Entity;
 using Bogus;
 using Bogus.DataSets;
 using Moq;
@@ -62,54 +64,90 @@ namespace apibronco.xunit
             //Assert.Equal(resultaEsperado, resultado);
         }
 
-        //[Fact]
-        //[Trait("Categoria", "Validando Investimento")]
-        //public void Investimento_ShouldThrowException_WhenCodigo_Empty()
-        //{
-        //    // Arrange
-        //    var tipo = Investimento.enTipoInvestimento.CDI;
-        //    var nome = _faker.Random.String2(100);
-        //    var descricao = _faker.Random.String2(500);
-        //    var codigo = "";
-        //    var taxaADM = 1.0m;
-        //    var aporteMinimo = 10m;
-        //    var rent_3 = 7.1m;
-        //    var rent_12 = 20.3m;
-        //    var rent_24 = 40.0m;
+        [Fact]
+        [Trait("Categoria", "Validando RegisterInfo")]
+        public void Cliente_Segurado_ShouldBeValid()
+        {
+            RegisterInfo info= new RegisterInfo();
+            //info.cpf = _faker.Random.AlphaNumeric(15);
+            info.cpf = "291.995.888-70";
+            info.option_renda = 1;
+            info.rg = _faker.Random.AlphaNumeric(15);
+            info.profissao = "analista";
+            info.data_nascimento = new DateTime(1981, 6, 7);
+            info.email = "bronco@bronco.com.br";
+            info.flag_possui_nome_social = true;
+            info.nome_social = _faker.Random.String2(50);
+            info.genero = 'F';
+            info.profissao = _faker.Random.String2(50);
+            info.nome = _faker.Random.String2(50);
+            info.sobre_nome = _faker.Random.String2(50);
+            info.telefone = string.Join("", _faker.Random.Digits(8, 1, 9));
+            //act
+            //var result = Assert.Throws<ArgumentException>(() => 
+            //    new Cliente_Segurado(info)
+            //);
+            ////Assert.Throws<DomainException>()
 
-        //    //act
-        //    var result = Assert.Throws<DomainException>(() => new Investimento(tipo, nome, descricao, codigo, taxaADM, aporteMinimo, rent_3, rent_12, rent_24));
-        //    //Assert.Throws<DomainException>()
+            ////Assert
+            //Assert.Equal("", result.Message);
 
-        //    //Assert
-        //    Assert.Equal("Codigo precisa ser preenchido.", result.Message);
+            string result = "";
+            try
+            {
+                Cliente_Segurado u = new Cliente_Segurado(info);
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
 
-        //}
+            Assert.Equal("", result);
+
+        }
 
 
-        //[Fact]
-        //[Trait("Categoria", "Validando Investimento")]
-        //public void Investimento_ShouldThrowException_WhenCodigo_Higher()
-        //{
-        //    // Arrange
-        //    var tipo = Investimento.enTipoInvestimento.CDI;
-        //    var nome = _faker.Random.String2(100);
-        //    var descricao = _faker.Random.String2(500);
-        //    var codigo = _faker.Random.String2(51); ;
-        //    var taxaADM = 1.0m;
-        //    var aporteMinimo = 10m;
-        //    var rent_3 = 7.1m;
-        //    var rent_12 = 20.3m;
-        //    var rent_24 = 40.0m;
+        [Fact]
+        [Trait("Categoria", "CPF Invalido")]
+        public void Cliente_Segurado_ShouldBeInValid_CPF()
+        {
+            RegisterInfo info = new RegisterInfo();
+            info.cpf = _faker.Random.AlphaNumeric(15);
+            //info.cpf = "291.995.888-70";
+            info.option_renda = 1;
+            info.rg = _faker.Random.AlphaNumeric(15);
+            info.profissao = "analista";
+            info.data_nascimento = new DateTime(1981, 6, 7);
+            info.email = "bronco@bronco.com.br";
+            info.flag_possui_nome_social = true;
+            info.nome_social = _faker.Random.String2(50);
+            info.genero = 'F';
+            info.profissao = _faker.Random.String2(50);
+            info.nome = _faker.Random.String2(50);
+            info.sobre_nome = _faker.Random.String2(50);
+            info.telefone = string.Join("", _faker.Random.Digits(8, 1, 9));
+            //act
+            //var result = Assert.Throws<ArgumentException>(() => 
+            //    new Cliente_Segurado(info)
+            //);
+            ////Assert.Throws<DomainException>()
 
-        //    //act
-        //    var result = Assert.Throws<DomainException>(() => new Investimento(tipo, nome, descricao, codigo, taxaADM, aporteMinimo, rent_3, rent_12, rent_24));
-        //    //Assert.Throws<DomainException>()
+            ////Assert
+            //Assert.Equal("", result.Message);
 
-        //    //Assert
-        //    Assert.Equal("Codigo do Investimento precisa ter no maximo 50 caracteres.", result.Message);
+            string result = "";
+            try
+            {
+                Cliente_Segurado u = new Cliente_Segurado(info);
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
 
-        //}
+            Assert.Equal("CPF invalido!", result);
+
+        }
 
 
         //[Fact]
